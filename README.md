@@ -1,5 +1,93 @@
 # RoboSubLA Computer Vision 
 
+# REPO: RSLA Vision Package
+
+## Overview
+
+The `rsla_vision` package integrates ROS 2, YOLOv7, and OpenCV to perform real-time object detection on Ubuntu 22.04. The various files in the repository configure the package, manage dependencies, and define the dataset used for training the YOLO model. The setup and configuration files ensure that the package can be built, installed, and run within the ROS 2 ecosystem, leveraging the capabilities of YOLOv7 and OpenCV for computer vision tasks.
+
+## Files and Their Interactions
+
+### 1. `rsla_vision.py`
+
+- **Purpose**: This script is a ROS 2 node that performs object detection using a YOLO model and publishes the detection results.
+- **Interactions**:
+  - **ROS 2**: Initializes a ROS 2 node, subscribes to an image topic (`/front_camera/image_raw`), and publishes detection results to a topic (`rsla/vision/detections`).
+  - **YOLOv7**: Loads a YOLOv7 model (likely from a `.pt` file) and uses it to detect objects in the incoming images.
+  - **OpenCV**: Uses OpenCV to process images (e.g., resizing) before feeding them into the YOLO model.
+  - **Ubuntu 22.04**: Runs on Ubuntu 22.04, leveraging its compatibility with ROS 2 and OpenCV.
+
+### 2. `rsla_vision_record.py`
+
+- **Purpose**: This script captures video frames from a camera and saves them to a video file.
+- **Interactions**:
+  - **OpenCV**: Uses OpenCV to capture video frames from the default camera and write them to a video file.
+  - **Ubuntu 22.04**: Runs on Ubuntu 22.04, utilizing its support for OpenCV and camera drivers.
+
+### 3. `args.yaml`
+
+- **Purpose**: Configuration file specifying parameters for training a YOLOv8 model.
+- **Interactions**:
+  - **YOLOv7**: Although the file is for YOLOv8, the parameters can be adapted for YOLOv7 training.
+  - **Ubuntu 22.04**: The training process configured by this file would run on Ubuntu 22.04, leveraging its support for machine learning libraries.
+
+### 4. `setup.py`
+
+- **Purpose**: Script for configuring the packaging and distribution of the `rsla_vision` Python project.
+- **Interactions**:
+  - **ROS 2**: Specifies entry points for ROS 2 nodes (`rsla_vision` and `rsla_vision_record`), enabling them to be run as ROS 2 executables.
+  - **Ubuntu 22.04**: Ensures that the package can be built and installed on Ubuntu 22.04.
+
+### 5. `setup.cfg`
+
+- **Purpose**: Configuration file providing additional settings for the packaging and installation process.
+- **Interactions**:
+  - **ROS 2**: Specifies directories for development and installation scripts, ensuring proper integration with ROS 2.
+  - **Ubuntu 22.04**: Ensures that the package is correctly installed on Ubuntu 22.04.
+
+### 6. `package.xml`
+
+- **Purpose**: Manifest file defining the metadata and dependencies of the `rsla_vision` ROS package.
+- **Interactions**:
+  - **ROS 2**: Lists dependencies (`rclpy`, `usb-cam`, `python3-opencv`) required for the ROS 2 package.
+  - **OpenCV**: Specifies `python3-opencv` as a dependency, ensuring that OpenCV is available for image processing.
+  - **Ubuntu 22.04**: Ensures that the package can be built and run on Ubuntu 22.04, leveraging its support for ROS 2 and OpenCV.
+
+### 7. `README.roboflow.txt`
+
+- **Purpose**: Provides information about the dataset exported from Roboflow.
+- **Interactions**:
+  - **YOLOv7**: Describes the dataset format (YOLOv8) and preprocessing steps, which are relevant for training a YOLOv7 model.
+  - **Ubuntu 22.04**: The dataset can be used for training on Ubuntu 22.04, leveraging its support for machine learning libraries.
+
+## Dataset Directory Structure
+
+- **dataset/resla_vision.v1i.yolov8**:
+  - **train**:
+    - **images**: Contains training images.
+    - **labels**: Contains corresponding label files in YOLO format.
+  - **valid**:
+    - **images**: Contains validation images.
+    - **labels**: Contains corresponding label files in YOLO format.
+
+## Interactions with the Technology Stack
+
+- **ROS 2**:
+  - Manages communication between nodes (`rsla_vision` and `rsla_vision_record`).
+  - Facilitates the subscription to image topics and publication of detection results.
+
+- **YOLOv7**:
+  - Provides the object detection model used in `rsla_vision.py`.
+  - The model is trained using the dataset described in `README.roboflow.txt` and configured by `args.yaml`.
+
+- **OpenCV**:
+  - Handles image processing tasks in `rsla_vision.py` and video capture in `rsla_vision_record.py`.
+  - Ensures that images are correctly formatted and processed before being fed into the YOLO model.
+
+- **Ubuntu 22.04**:
+  - Provides the operating system environment for running ROS 2, YOLOv7, and OpenCV.
+  - Ensures compatibility with the required libraries and tools.
+ 
 
 # ROS 2 Iron Installation Guide for Ubuntu 22.04
 
